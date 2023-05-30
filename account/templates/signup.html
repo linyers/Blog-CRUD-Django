@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5 mb-4">
+            <div class="card card-body">
+                <h1 class="text-center">Sign up</h1>
+                {% include 'partials/_msg.html'%}
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="inputEmail">Email:</label>
+                        <input class="form-control" type="email" name="email" id="inputEmail" class="form-control"
+                            placeholder="Email address" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputUsername">Username:</label>
+                        <input class="form-control" type="text" name="username" id="inputUsername" class="form-control"
+                            placeholder="Username" required>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="inputPassword1">Password:</label>
+                        <input class="form-control" type="password" name="password1" id="inputPassword1" class="form-control"
+                            placeholder="Password" required>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="inputPassword2">Repeat password:</label>
+                        <input class="form-control" type="password" name="password2" id="inputPassword2" class="form-control"
+                            placeholder="Confirm password" required>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <p class="pt-2">Already have an account? <a href="{% url 'account:signin'%}">Sign in</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

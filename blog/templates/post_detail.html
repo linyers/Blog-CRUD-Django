@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container-fluid my-5">
+    <section class="card card-body">
+        <h1>{{post.title}}</h1>
+        <hr>
+
+        <p class="text-muted">Post by {{post.author}}</p>
+        <p class="text-muted">Created {{created}}</p>
+        {% if updated %}
+            <p class="text-muted">Edited {{updated}}</p>
+        {% endif %}
+
+        <p>{{post.description|safe}}</p>
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <a href="{% url 'account:profile' post.author.username %}"><img src="/public/{{post.author.profile_image}}" class="w-100 img-fluid rounded"></a>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'account:profile' post.author.username %}">{{post.author}}</a></h5>
+                        {% if post.author.bio %}
+                        <p class="card-text">{{post.author.bio|truncatechars:120}}</p>
+                        {% else %}
+                        <p class="card-text">No have bio</p>
+                        {% endif %}
+                        <p class="card-text"><small class="text-body-secondary">Last login {{last}}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if request.user == post.author %}
+            
+            <div class="d-flex mt-3 col align-self-center">
+                <a href="{% url 'blog:update_post' post.id %}" class="btn btn-outline-primary">Edit</a>
+                
+                <form action="{% url 'blog:delete_post' post.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger mx-2">Delete</button>
+                </form>
+            </div>
+            
+        {% endif%}
+    </section>
+</main>
+{% endblock %}

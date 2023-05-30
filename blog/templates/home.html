@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container my-5">
+    <section class="card card-body">
+        {% include 'partials/_msg.html'%}
+
+        <h1 class="display-1 text-center">Lolas Blog</h1>
+
+        <h2 class="text-center">Un blog a favor de los wasos</h2>
+
+        <div class="card">
+            <div class="card-header">
+                News Posts
+            </div>
+            {% for post, date in blogs%}
+            <div class="card-body my-1 bg-light">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="d-table-cell align-middle px-3">
+                            <img src="/public/default/images/IMG-20200406-WA0245.jpg" alt="Logo" width="30"
+                                class="rounded-circle">
+                        </div>
+                        <div class="d-table-cell px-3">
+                            <h5 class="card-title"><a href="{% url 'blog:detail_post' post.id %}">{{ post.title }}</a>
+                            </h5>
+                            <div class="card-text">
+                                <p class="fs-6">{{ post.description|truncatechars:150|striptags }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="fs-2">
+                            {% for keys, values in total_posts %}
+                                {% if keys == post.author.id %}
+                                    {{values}}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class='text-muted'>
+                            Posts
+                        </p>
+                    </div>
+                    <div class="mx-3">
+                        <div class="d-table-cell align-middle px-3">
+                            <a href="{% url 'account:profile' post.author.username %}"><img
+                                    src="/public/{{post.author.profile_image}}" alt="Logo" width="50"
+                                    class="rounded-circle"></a>
+                        </div>
+                        <div class="d-table-cell align-items-end">
+                            <h6 class="card-subtitle mb-2 text-muted">By <a
+                                    href="{% url 'account:profile' post.author.username %}">{{post.author}}</a></h6>
+                            <p class="card-subtitle mb-2 text-muted">{{ date }}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+</main>
+
+
+{% endblock %}

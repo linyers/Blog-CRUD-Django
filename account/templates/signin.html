@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5 mb-4">
+            <div class="card card-body">
+                <h1 class="text-center">Sign up</h1>
+                {% include 'partials/_msg.html'%}
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="id_email">Email:</label>
+                        <input class="form-control" type="email" name="email" id="id_email" placeholder="Email address"
+                            required autofocus>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="id_password">Password:</label>
+                        <input class="form-control" type="password" name="password" id="id_password"
+                            placeholder="Password" required>
+                    </div>
+
+
+                    <button class="btn btn-primary" type="submit">Log in</button>
+                </form>
+
+                <div class="pt-2">
+                    <a href="{% url 'account:password_reset' %}">Forgot password?</a>
+                    <p class="pt-2">New in LolasBlog? <a href="{% url 'account:signup'%}">Sign up</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
