@@ -14,52 +14,45 @@
             <div class="card-header">
                 News Posts
             </div>
-            {% for post, date in blogs%}
-            <div class="card-body my-1 bg-light">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <div class="d-table-cell align-middle px-3">
+
+            <div class="table-responsive">
+                <table class="table table-striped align-middle table-hover">
+                    {% for post, date in blogs%}
+                    <tr>
+                        <td>
                             <img src="/public/default/images/IMG-20200406-WA0245.jpg" alt="Logo" width="30"
                                 class="rounded-circle">
-                        </div>
-                        <div class="d-table-cell px-3">
-                            <h5 class="card-title"><a href="{% url 'blog:detail_post' post.id %}">{{ post.title }}</a>
-                            </h5>
-                            <div class="card-text">
-                                <p class="fs-6">{{ post.description|truncatechars:150|striptags }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p class="fs-2">
-                            {% for keys, values in total_posts %}
+                        </td>
+                        <td>
+                            <h5 class="card-title"><a href="{% url 'blog:detail_post' post.id %}">{{ post.title }}</a></h5>
+                            <p class="fs-6">{{ post.description|truncatechars:150|striptags }}</p>
+                        </td>
+                        <td class="text-center gap-5">
+                            <p class="fs-2">
+                                {% for keys, values in total_posts %}
                                 {% if keys == post.author.id %}
-                                    {{values}}
+                                {{values}}
                                 {% endif %}
-                            {% endfor %}
-                        </p>
-                        <p class='text-muted'>
-                            Posts
-                        </p>
-                    </div>
-                    <div class="mx-3">
-                        <div class="d-table-cell align-middle px-3">
+                                {% endfor %}
+                            </p>
+                            <p class='text-muted'>
+                                Posts
+                            </p>
+                        </td>
+                        <td>
                             <a href="{% url 'account:profile' post.author.username %}"><img
                                     src="/public/{{post.author.profile_image}}" alt="Logo" width="50"
-                                    class="rounded-circle"></a>
-                        </div>
-                        <div class="d-table-cell align-items-end">
+                                    class="rounded-circle mb-2"></a>
                             <h6 class="card-subtitle mb-2 text-muted">By <a
                                     href="{% url 'account:profile' post.author.username %}">{{post.author}}</a></h6>
-                            <p class="card-subtitle mb-2 text-muted">{{ date }}</p>
-                        </div>
-                    </div>
-
-                </div>
+                            <p class="card-subtitle text-muted">{{ date }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+    
             </div>
-            {% endfor %}
         </div>
-
     </section>
 </main>
 
